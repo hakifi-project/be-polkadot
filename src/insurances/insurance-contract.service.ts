@@ -31,7 +31,6 @@ import {
   parseEther,
 } from 'ethers';
 
-import { TransactionBlock } from '@mysten/sui.js/transactions';
 import { FallbackProviderConfig } from 'ethers/lib.commonjs/providers/provider-fallback';
 
 @Injectable()
@@ -229,8 +228,7 @@ export class InsuranceContractService implements OnModuleInit {
     payback = true,
     creatorAdress: string,
   ) {
-    const tx = new TransactionBlock();
-    tx.setGasBudget(100000000);
+
     this.logger.log(`Invalidate Insurance ${id}`);
     await this.insuranceHelper.lockInsurance(id, async () => {
       await this.prismaService.insurance.update({
@@ -572,8 +570,7 @@ export class InsuranceContractService implements OnModuleInit {
     p_close: number,
   ) {
     let updatedInsurance: Insurance;
-    const tx = new TransactionBlock();
-    tx.setGasBudget(100000000);
+
     await this.insuranceHelper.lockInsurance(insurance.id, async () => {
       const pnlUser = -insurance.margin;
       updatedInsurance = await this.prismaService.insurance.update({

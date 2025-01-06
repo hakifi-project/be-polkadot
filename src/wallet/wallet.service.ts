@@ -19,12 +19,10 @@ import { InjectQueue } from '@nestjs/bull';
 import { WALLET_QUEUE_ACTION, WALLET_QUEUE_NAME } from './wallet.constant';
 import { Queue } from 'bull';
 import { floor } from 'src/common/helpers/utils';
-import { Ed25519Keypair } from '@mysten/sui.js/keypairs/ed25519';
 
 @Injectable()
 export class WalletService {
   private readonly logger = new Logger(WalletService.name);
-  private keyPair: Ed25519Keypair;
 
   constructor(
     private readonly prismaService: PrismaService,
@@ -33,33 +31,6 @@ export class WalletService {
   ) {
     const config = this.configService.get<ContractConfig>('contract');
   }
-
-  // async faucetUsdt(user: User) {
-  //   const amount = 1000; // 1000 USDT
-
-  //   if (user.isFaucet) {
-  //     throw new BadRequestException('You have already received the faucet');
-  //   }
-  //   try {
-  //     const txhash = await this.transferToUser(user.walletAddress, amount);
-  //     await this.prismaService.user.update({
-  //       where: {
-  //         id: user.id,
-  //       },
-  //       data: {
-  //         isFaucet: true,
-  //       },
-  //     });
-  //     return {
-  //       txhash,
-  //     };
-  //   } catch (error) {
-  //     this.logger.error('Failed to transfer USDT', error);
-  //     throw new InternalServerErrorException(
-  //       'Failed to transfer USDT, please try again later',
-  //     );
-  //   }
-  // }
 
   async getWallets(query: WalletsQueryDto) {
     const { userId, asset } = query;
@@ -194,19 +165,4 @@ export class WalletService {
       },
     });
   }
-
-  // async transferToUser(walletAddress: string, amount: number) {
-  //   const txhash = await this.suiService.transferSplToken(
-  //     walletAddress,
-  //     amount,
-  //   );
-  //   return txhash;
-  // }
-
-  // async getBalanceCommissionWallet() {
-  //   const balance = await this.suiService.getSplTokenBalance(
-  //     this.keyPair.toSuiAddress(),
-  //   );
-  //   return balance;
-  // }
 }

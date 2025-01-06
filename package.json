@@ -29,8 +29,6 @@
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.29.0",
-    "@mysten/sui.js": "^0.54.1",
-    "@mysten/wallet-kit": "^0.8.6",
     "@nestjs/axios": "^3.0.1",
     "@nestjs/bull": "^10.1.0",
     "@nestjs/cache-manager": "^2.1.1",

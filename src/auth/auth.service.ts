@@ -4,7 +4,6 @@ import { AuthDto } from './dto/auth.dto';
 import { UsersService } from 'src/users/users.service';
 import { ConfigService } from '@nestjs/config';
 import { Config } from 'src/configs/config.interface';
-import { verifyPersonalMessage } from '@mysten/sui.js/verify'
 import { verifyMessage } from 'ethers';
 @Injectable()
 export class AuthService {

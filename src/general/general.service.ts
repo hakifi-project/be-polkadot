@@ -14,7 +14,7 @@ export class GeneralService {
     private readonly priceService: PriceService,
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,
-  ) {}
+  ) { }
 
   async getStats() {
     const [totalUsers, resultCommon, totalPayback] = await Promise.all([
@@ -347,35 +347,4 @@ export class GeneralService {
     return results;
   }
 
-  // get voting sui
-  async getVotingSui() {
-    const res = await axios.post(
-      'https://t.suiscan.xyz/api/sui/testnet-wave-3/',
-      {
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'sui_getObject',
-        params: [
-          '0xb15d1953bed624caa8cfa4b9dfdca6d3227d6b1c056a27a8ac1243da436bf4b9',
-          {
-            showType: true,
-            showOwner: true,
-            showPreviousTransaction: true,
-            showDisplay: true,
-            showContent: true,
-            showBcs: true,
-            showStorageRebate: true,
-          },
-        ],
-      },
-    );
-    const list = res.data?.result?.data?.content?.fields?.project_list
-      .map((p) => ({
-        name: p.fields.name,
-        votes: Number(p.fields.votes),
-      }))
-      .sort((a, b) => b.votes - a.votes)
-      .map((p, i) => ({ ...p, rank: i + 1 }));
-    return list;
-  }
 }

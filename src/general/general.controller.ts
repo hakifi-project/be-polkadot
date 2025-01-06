@@ -6,7 +6,7 @@ import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 @Controller('general')
 @ApiTags('General')
 export class GeneralController {
-  constructor(private readonly generalService: GeneralService) {}
+  constructor(private readonly generalService: GeneralService) { }
 
   @Get('stats')
   @UseInterceptors(CacheInterceptor)
@@ -32,10 +32,5 @@ export class GeneralController {
   @Get('market-overview')
   getMarketOverview() {
     return this.generalService.getMarketOverview();
-  }
-
-  @Get('voting')
-  getVoting() {
-    return this.generalService.getVotingSui();
   }
 }
